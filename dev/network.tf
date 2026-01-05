@@ -18,5 +18,4 @@ module "nat" {
     network_name = var.dev_vpc_name
     region       = var.region
     network_id   = module.vpc_dev.network_id
-    depends_on = [ module.vpc_dev ]
 } 
