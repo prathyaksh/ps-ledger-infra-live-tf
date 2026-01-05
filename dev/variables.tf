@@ -9,3 +9,7 @@ variable "region" {
 variable "dev_cidr_range" {
   type = string
 }
+
+variable "network_id" {
+  type = string
+}
