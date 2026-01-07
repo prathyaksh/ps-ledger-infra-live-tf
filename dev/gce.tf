@@ -6,5 +6,5 @@ module "ledger_vm" {
   subnet_self_link = module.vpc_dev.subnet_self_link
   network_self_link = module.vpc_dev.network_self_link
   target_tags      = ["ssh-access"]
-
+  email = module.finance_ledger_sa.email
 }
