@@ -3,7 +3,7 @@ module "create_ledger_sa" {
   source       = "../../ps-ledger-infra-modules-tf/modules/iam"
   project_id   = var.project_id
   create_sa    = true
-  sa_id        = "finance-ledger-sa"
+  sa_id        = "fin-ledger-sa"
   display_name = "Finance App SA"
 }
 
@@ -11,7 +11,7 @@ module "create_ledger_sa" {
 module "assign_sa_roles" {
   source     = "../../ps-ledger-infra-modules-tf/modules/iam"
   project_id = var.project_id
-  member_id  = "serviceAccount:finance-ledger-sa@${var.project_id}.iam.gserviceaccount.com"
+  member_id  = "serviceAccount:fin-ledger-sa@${var.project_id}.iam.gserviceaccount.com"
   roles_list = [
     "roles/logging.logWriter",
     "roles/monitoring.metricWriter"
