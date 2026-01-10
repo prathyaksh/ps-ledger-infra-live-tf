@@ -14,7 +14,7 @@ module "firewall_rules" {
       action        = "allow"        # Added this
       protocol      = "tcp"
       ports         = ["80"]
-      source_ranges = ["0.0.0.0/0"]
+      source_ranges = ["0.0.0.0/0", "130.211.0.0/22", "35.191.0.0/16"]
       target_tags   = ["http-server"]
     }
   }
