@@ -29,7 +29,7 @@ module "ledger_vm" {
   subnet_self_link  = module.vpc_dev.subnet_self_link
   network_self_link = module.vpc_dev.network_self_link
   target_tags       = ["ssh-access", "http-server"]
-  email             = join("", module.create_ledger_sa.sa_email)
+  email             = module.create_ledger_sa.sa_email
   depends_on = [
     module.firewall_rules
   ]
