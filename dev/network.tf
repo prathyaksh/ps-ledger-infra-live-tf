@@ -11,8 +11,3 @@ module "nat" {
   region       = var.region
   network_id   = module.vpc_dev.network_id
 }
-
-module "firewall_rules_dev" {
-  source       = "../../ps-ledger-infra-modules-tf/modules/firewall"
-  network_name = var.dev_vpc_name
-}
