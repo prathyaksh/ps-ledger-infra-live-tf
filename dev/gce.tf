@@ -24,6 +24,10 @@ module "ledger_vm" {
     apt-get install -y nginx
     echo "<h1>Financial Ledger - System Online</h1>" > /var/www/html/index.html
     systemctl restart nginx
+
+    # Install the Google Cloud Ops Agent (The SRE "Spy")
+    curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
+    bash add-google-cloud-ops-agent-repo.sh --also-install
   EOT
 
   subnet_self_link  = module.vpc_dev.subnet_self_link
