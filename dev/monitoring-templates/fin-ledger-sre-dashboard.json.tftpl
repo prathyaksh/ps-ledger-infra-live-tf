@@ -6,33 +6,43 @@
       {
         "title": "Traffic: LB Requests Per Second",
         "xyChart": {
-          "dataSets": [{
-            "timeSeriesQuery": {
-              "timeSeriesFilter": {
-                "filter": "resource.type=\"http_load_balancer\" AND metric.type=\"loadbalancing.googleapis.com/https/request_count\" AND resource.labels.url_map_name=\"${lb_name}-url-map\"",
-                "aggregation": {
-                  "alignmentPeriod": "60s",
-                  "perSeriesAligner": "ALIGN_RATE"
+          "dataSets": [
+            {
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  /* FIX 1: Use the Resource Type you found in the manual dashboard */
+                  "filter": "metric.type=\"loadbalancing.googleapis.com/https/request_count\" resource.type=\"https_lb_rule\" resource.labels.url_map_name=\"${lb_name}-url-map\"",
+                  /* FIX 2: Add REDUCE_SUM to combine traffic across all edges */
+                  "aggregation": {
+                    "alignmentPeriod": "60s",
+                    "perSeriesAligner": "ALIGN_RATE",
+                    "crossSeriesReducer": "REDUCE_SUM"
+                  }
                 }
-              }
+              },
+              "plotType": "LINE"
             }
-          }]
+          ]
         }
       },
       {
         "title": "Errors: 5xx Rate",
         "xyChart": {
-          "dataSets": [{
-            "timeSeriesQuery": {
-              "timeSeriesFilter": {
-                "filter": "resource.type=\"http_load_balancer\" AND metric.type=\"loadbalancing.googleapis.com/https/request_count\" AND metric.labels.response_code_class=\"500\"",
-                "aggregation": {
-                  "alignmentPeriod": "60s",
-                  "perSeriesAligner": "ALIGN_RATE"
+          "dataSets": [
+            {
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"loadbalancing.googleapis.com/https/request_count\" resource.type=\"https_lb_rule\" resource.labels.url_map_name=\"${lb_name}-url-map\" metric.labels.response_code_class=\"500\"",
+                  "aggregation": {
+                    "alignmentPeriod": "60s",
+                    "perSeriesAligner": "ALIGN_RATE",
+                    "crossSeriesReducer": "REDUCE_SUM"
+                  }
                 }
-              }
+              },
+              "plotType": "LINE"
             }
-          }]
+          ]
         }
       }
     ]
