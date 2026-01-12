@@ -10,9 +10,7 @@
             {
               "timeSeriesQuery": {
                 "timeSeriesFilter": {
-                  /* FIX 1: Use the Resource Type you found in the manual dashboard */
                   "filter": "metric.type=\"loadbalancing.googleapis.com/https/request_count\" resource.type=\"https_lb_rule\" resource.labels.url_map_name=\"${lb_name}-url-map\"",
-                  /* FIX 2: Add REDUCE_SUM to combine traffic across all edges */
                   "aggregation": {
                     "alignmentPeriod": "60s",
                     "perSeriesAligner": "ALIGN_RATE",
