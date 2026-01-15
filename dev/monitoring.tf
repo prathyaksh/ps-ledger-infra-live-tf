@@ -24,7 +24,7 @@ module "ledger_alerts" {
   lb_ip               = module.ledger_lb.lb_ip
   dashboard_name      = "Ledger-Alerts"
   dashboard_json      = "" 
-  alert_email_address = "your-email@example.com"
+  alert_email_address = "ps.prathyaksh@gmail.com"
 
   # Defining the "Molds" here
   threshold_alerts = {
@@ -47,10 +47,10 @@ module "ledger_alerts" {
   }
 
   absence_alerts = {
-    "traffic" = {
-      display_name = "Alert: NO TRAFFIC DETECTED (System Dark)"
-      filter       = "metric.type=\"loadbalancing.googleapis.com/https/request_count\" resource.type=\"https_lb_rule\" resource.labels.url_map_name=\"ledger-app-lb-url-map\""
-      duration     = "600s"
-    }
+  "traffic" = {
+    display_name = "Alert: NO TRAFFIC DETECTED (System Dark)"
+    filter       = "metric.type=\"loadbalancing.googleapis.com/https/request_count\" resource.type=\"https_lb_rule\" resource.labels.url_map_name=\"ledger-app-lb-url-map\""
+    duration     = "600s"
   }
+}
 }
