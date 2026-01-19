@@ -10,7 +10,7 @@ module "ledger_vm" {
     environment = "dev"
   }
 
-  # THIS CALLS THE EXTERNAL FILE
+  # THIS CALLS THE EXTERNAL FILE.
   startup_script = file("${path.module}/gce_startup_scripts/startup.sh")
 
   subnet_self_link  = module.vpc_dev.subnet_self_link
