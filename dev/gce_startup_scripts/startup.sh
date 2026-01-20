@@ -14,16 +14,20 @@ server {
     listen 80 default_server;
     server_name _;
 
+    # This is the "Root" location. 
+    # The Load Balancer hits this to see if the server is alive.
+    location / {
+        root /var/www/html;
+        index index.html;
+        try_files \$uri \$uri/ =404;
+    }
+
+    # This is for the Ops Agent only.
     location /nginx_status {
         stub_status on;
         access_log off;
         allow 127.0.0.1;
         deny all;
-    }
-
-    location / {
-        root /var/www/html;
-        index index.html;
     }
 }
 EOF
