@@ -54,3 +54,82 @@ module "ledger_alerts" {
   }
 }
 }
+
+
+## 4 golden signals ##
+
+resource "google_logging_metric" "nginx_error_count" {
+  name   = "nginx_error_count"
+  filter = "resource.type=\"gce_instance\" AND log_id(\"nginx_access\") AND httpRequest.status >= 400"
+  
+  metric_descriptor {
+    metric_kind = "DELTA"
+    value_type  = "INT64"
+    unit        = "1"
+  }
+}
+
+resource "google_monitoring_dashboard" "golden_signals" {
+  dashboard_json = <<EOF
+{
+  "displayName": "Financial Ledger - 4 Golden Signals",
+  "gridLayout": {
+    "columns": "2",
+    "widgets": [
+      {
+        "title": "1. Traffic (Requests/sec)",
+        "xyChart": {
+          "dataSets": [{
+            "timeSeriesQuery": {
+              "timeSeriesFilter": {
+                "filter": "metric.type=\"workload.googleapis.com/nginx.requests\" resource.type=\"gce_instance\"",
+                "aggregation": { "perSeriesAligner": "ALIGN_RATE" }
+              }
+            }
+          }]
+        }
+      },
+      {
+        "title": "2. Errors (4xx/5xx Count)",
+        "xyChart": {
+          "dataSets": [{
+            "timeSeriesQuery": {
+              "timeSeriesFilter": {
+                "filter": "metric.type=\"logging.googleapis.com/user/nginx_error_count\" resource.type=\"gce_instance\"",
+                "aggregation": { "perSeriesAligner": "ALIGN_DELTA" }
+              }
+            }
+          }]
+        }
+      },
+      {
+        "title": "3. Latency (P95 ms)",
+        "xyChart": {
+          "dataSets": [{
+            "timeSeriesQuery": {
+              "timeSeriesFilter": {
+                "filter": "metric.type=\"loadbalancing.googleapis.com/https/total_latencies\" resource.type=\"https_lb_rule\"",
+                "aggregation": { "perSeriesAligner": "ALIGN_PERCENTILE_95" }
+              }
+            }
+          }]
+        }
+      },
+      {
+        "title": "4. Saturation (CPU %)",
+        "xyChart": {
+          "dataSets": [{
+            "timeSeriesQuery": {
+              "timeSeriesFilter": {
+                "filter": "metric.type=\"compute.googleapis.com/instance/cpu/utilization\" resource.type=\"gce_instance\"",
+                "aggregation": { "perSeriesAligner": "ALIGN_MEAN" }
+              }
+            }
+          }]
+        }
+      }
+    ]
+  }
+}
+EOF
+}
