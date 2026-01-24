@@ -31,14 +31,3 @@ variable "sa_id" {
 variable "project_id" {
   type = string
 }
-
-# gce-vm-templates variables #
-
-variable"prefix" {
-  type = string
-}
-
-variable "service_account_email" {
-  description = "The email of the service account to attach to the VM"
-  type        = string
-}
