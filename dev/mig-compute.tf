@@ -1,7 +1,7 @@
 module "ledger_mig" {
   source = "../../ps-ledger-infra-modules-tf/modules/mig-compute"
 
-  name                 = "ledger-app"
+  name                 = "ledger-app-mig"
   project_id           = var.project_id
   region               = "asia-south1"
   target_size          = 1
