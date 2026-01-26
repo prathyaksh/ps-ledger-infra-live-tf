@@ -18,5 +18,5 @@ module "ledger_template" {
   # Point this to the actual path of your script
   startup_script        = file("${path.module}/gce_startup_scripts/startup.sh")
   
-  tags                  = ["http-server", "ledger-app"]
+  tags                  = ["http-server", "ssh-access"]
 }
