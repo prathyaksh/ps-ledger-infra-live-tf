@@ -11,3 +11,10 @@ module "nat" {
   region       = var.region
   network_id   = module.vpc_dev.network_id
 }
+
+module "private_service_access" {
+  source             = "../../ps-ledger-infra-modules-tf/modules/private-service-access"
+  project_id         = var.project_id
+  vpc_id             = module.vpc_dev.network_id
+  peering_range_name = "google-managed-services-dev"
+}
