@@ -31,3 +31,9 @@ variable "sa_id" {
 variable "project_id" {
   type = string
 }
+
+variable "db_password" {
+  description = "The master password for the Cloud SQL instance"
+  type        = string
+  sensitive   = true
+}
