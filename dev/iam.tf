@@ -28,3 +28,11 @@ module "assign_my_user_roles" {
     "roles/compute.viewer"
   ]
 }
+
+module "secret_manager_iam" {
+  source       = "../../ps-ledger-infra-modules-tf/modules/iam"
+  project_id   = var.project_id
+  service_name = "secretmanager.googleapis.com"
+  kms_key_id   = module.kms.key_id
+  role         = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+}
