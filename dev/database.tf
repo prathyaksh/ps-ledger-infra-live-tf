@@ -1,4 +1,4 @@
-/*
+
 module "ledger_db" {
   source = "../../ps-ledger-infra-modules-tf/modules/cloud-sql"
 
@@ -12,10 +12,10 @@ module "ledger_db" {
   
   db_user_name         = "ledger_admin"
   db_name              = "ledger_app_db"
+  db_password          =  module.secrets.db_password_secret_version_id
 
   tier                 = "db-f1-micro"
   availability_type    = "ZONAL"
   disk_type            = "PD_SSD"
   backup_enabled       = true
 }
-*/
