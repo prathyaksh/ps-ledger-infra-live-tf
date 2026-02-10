@@ -9,6 +9,7 @@ module "ledger_db" {
   environment          = "dev"
   region               = var.region
   vpc_id               = module.vpc_dev.network_id
+  db_password_secret_name = module.secrets.secret_name
   
   db_user_name         = "ledger_admin"
   db_name              = "ledger_app_db"
