@@ -12,7 +12,6 @@ module "ledger_db" {
   
   db_user_name         = "ledger_admin"
   db_name              = "ledger_app_db"
-  db_password          =  module.secrets.db_password_secret_version_id
 
   tier                 = "db-f1-micro"
   availability_type    = "ZONAL"
