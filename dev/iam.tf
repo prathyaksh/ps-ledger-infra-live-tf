@@ -14,7 +14,9 @@ module "assign_sa_roles" {
   member_id  = "serviceAccount:fin-ledger-sa@${var.project_id}.iam.gserviceaccount.com"
   roles_list = [
     "roles/logging.logWriter",
-    "roles/monitoring.metricWriter"
+    "roles/monitoring.metricWriter",
+    "roles/cloudsql.client",
+    "roles/secretmanager.secretAccessor"
   ]
 }
 
